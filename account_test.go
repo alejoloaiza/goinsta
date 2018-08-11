@@ -3,12 +3,47 @@ package goinsta
 import (
 	"fmt"
 	"os"
+	"testing"
+
+	"github.com/ahmdrz/goinsta"
 
 	e "github.com/ahmdrz/goinsta/examples"
 	"github.com/howeyc/gopass"
-	"gopkg.in/ahmdrz/goinsta.v2"
 )
 
+func Test_AccountFollowers(t *testing.T) {
+	var count int = 0
+	user := os.Getenv("INSTA_USER")
+	pass := os.Getenv("INSTA_PASS")
+	inst := goinsta.New(user, pass)
+	err := inst.Login()
+	users := inst.Account.Followers()
+	for users.Next() {
+		fmt.Println("Next:", users.NextID)
+		for range users.Users {
+			count++
+		}
+	}
+	if err != nil || count == 0 {
+		t.Fail()
+	}
+
+}
+func Test_AccountSync(t *testing.T) {
+	var count int = 0
+	user := os.Getenv("INSTA_USER")
+	pass := os.Getenv("INSTA_PASS")
+	inst := goinsta.New(user, pass)
+	err := inst.Login()
+	fmt.Println(inst.Account.FollowerCount)
+	err = inst.Account.Sync()
+	fmt.Println(inst.Account.FollowerCount)
+
+	if err != nil || count == 0 {
+		t.Fail()
+	}
+
+}
 func ExampleAccount_ChangePassword() {
 	// See more: example/account/changepass.go
 	fmt.Print("Password: ")
