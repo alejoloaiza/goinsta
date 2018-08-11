@@ -19,7 +19,6 @@ func Test_AccountFollowers(t *testing.T) {
 	err := inst.Login()
 	users := inst.Account.Followers()
 	for users.Next() {
-		fmt.Println("Next:", users.NextID)
 		for range users.Users {
 			count++
 		}
@@ -27,10 +26,11 @@ func Test_AccountFollowers(t *testing.T) {
 	if err != nil || count == 0 {
 		t.Fail()
 	}
-
 }
+
+/*
 func Test_AccountSync(t *testing.T) {
-	var count int = 0
+	var count int = 0g
 	user := os.Getenv("INSTA_USER")
 	pass := os.Getenv("INSTA_PASS")
 	inst := goinsta.New(user, pass)
@@ -42,7 +42,7 @@ func Test_AccountSync(t *testing.T) {
 		t.Fail()
 	}
 
-}
+}*/
 func ExampleAccount_ChangePassword() {
 	// See more: example/account/changepass.go
 	fmt.Print("Password: ")
