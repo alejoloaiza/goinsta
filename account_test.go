@@ -35,7 +35,6 @@ func Test_AccountSync(t *testing.T) {
 	pass := os.Getenv("INSTA_PASS")
 	inst := goinsta.New(user, pass)
 	err := inst.Login()
-	fmt.Println(inst.Account.FollowerCount)
 	err = inst.Account.Sync()
 	fmt.Println(inst.Account.FollowerCount)
 
